@@ -24,7 +24,7 @@ public class MGPizza extends JFrame implements ActionListener
 	 public static JLabel lblU = new JLabel();
 	 public static JLabel lblP = new JLabel();
 	 public static JLabel lblMG = new JLabel();
-	MGPizza() 
+	 MGPizza() 
 	{
 		// Sets title of window and labels
 		super("MG Pizza Login");
@@ -108,5 +108,11 @@ public class MGPizza extends JFrame implements ActionListener
 
 			}
 		});
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+	 
 	}
 }
