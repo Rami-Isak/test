@@ -75,11 +75,10 @@ public class MGPizza extends JFrame implements ActionListener
 		getContentPane().add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		actionlogin();
-
+		actionbtns();
 	}
     
-	public void actionlogin() 
+	public void actionbtns() 
 	{
 		// Action listener for Login Button
 		logBtn.addActionListener(new ActionListener() 
@@ -108,11 +107,21 @@ public class MGPizza extends JFrame implements ActionListener
 
 			}
 		});
+
+			// Action listener for Exit Button
+			extBtn.addActionListener(new ActionListener() 
+			{
+				
+				public void actionPerformed(ActionEvent ae) 
+				{ 
+					System.exit(0);
+				}
+			});
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-	 
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
