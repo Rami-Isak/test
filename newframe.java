@@ -1,8 +1,17 @@
+// Rami Isak
+// 07/11/22
+// Main Application
+
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+public class newframe extends JFrame 
+{
 
-public class newframe extends JFrame {
-
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		newframe frameTabel = new newframe();
 	}
 
@@ -11,7 +20,7 @@ public class newframe extends JFrame {
 
 	newframe() 
 	{
-		  setSize(300, 200);
+		  setSize(700, 600);
 		  setLocation(500, 280);
 		  panel.setLayout(null);
 

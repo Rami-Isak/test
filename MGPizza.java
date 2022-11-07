@@ -108,15 +108,15 @@ public class MGPizza extends JFrame implements ActionListener
 			}
 		});
 
-			// Action listener for Exit Button
-			extBtn.addActionListener(new ActionListener() 
-			{
+		// Action listener for Exit Button
+		extBtn.addActionListener(new ActionListener() 
+		{
 				
-				public void actionPerformed(ActionEvent ae) 
-				{ 
-					System.exit(0);
-				}
-			});
+			public void actionPerformed(ActionEvent ae) 
+			{ 
+				System.exit(0);
+			}
+		});
 	}
 
 	@Override
