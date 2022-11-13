@@ -93,11 +93,11 @@ public class MGPizza extends JFrame implements ActionListener
 				// If username and password match
 				String name = textField.getText();
 				String pwd = jPasswordField.getText();
-				if (name.equals("rami") && pwd.equals("rami")) 
+				if (name.equals("") && pwd.equals("")) 
 				{
 					ResortBookingCalculator theApp = new ResortBookingCalculator();
 
-			        theApp.setTitle ("MG Resort Booking");
+			        theApp.setTitle ("MG Pizza");
 			        theApp.setSize (800, 600);
 			        theApp.setLocationRelativeTo(theApp);
 			        theApp.setVisible(true);
