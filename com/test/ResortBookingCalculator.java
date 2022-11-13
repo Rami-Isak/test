@@ -11,20 +11,30 @@ import javax.swing.*;
 
 
 public class ResortBookingCalculator extends JFrame implements ActionListener
+
 {
-	private JLabel lblDetails = new JLabel();
 	private JLabel lblNights;
 	private JTextField txtNights;
+	private JLabel lblName;
+	private JTextField txtName;
+	private JLabel lblPhone;
+	private JTextField txtPhone;
+	private JLabel lblAddress;
+	private JTextField txtAddress;
+	private JPanel pnlCustomer;
+	private JPanel pnlOrder;
+	
+
 	private JRadioButton rbtStandard, rbtDeluxe;
 	private JCheckBox chkDog;
 	private JTextArea txtDisplay;
 	private JButton btnBook;
 	private JButton btnClear;
-	private JPanel pnlHeading;
-	private JPanel pnlBooking;
 	private JPanel pnlNights;
 	private JPanel pnlRoom;
 	private JPanel pnlButton;
+	
+	
 
 	Container pane = getContentPane();
 
@@ -40,21 +50,27 @@ public class ResortBookingCalculator extends JFrame implements ActionListener
 	{
 		pane.setLayout(new BorderLayout());
 
-		//Heading panel
-		pnlHeading = new JPanel();
-		pnlHeading.setLayout(new FlowLayout(FlowLayout.CENTER,0,15));
-		JLabel lblHeading =new JLabel("MG Resort Booking");
-		lblHeading.setForeground(Color.GREEN);
-		lblHeading.setFont(new Font("Arial",Font.BOLD,24));
-		lblDetails.setForeground(Color.GREEN);
-		pnlHeading.add(lblHeading);
-		pnlHeading.add(lblDetails);
-		pnlHeading.setBackground(Color.BLACK);
 
 		//Panel: Order 4 x 1 grid - No Nights, room type, dog?
-		pnlBooking = new JPanel();
-		pnlBooking.setLayout(new GridLayout(4, 1));
-		pnlBooking.setBorder(BorderFactory.createTitledBorder("Booking Details"));
+		pnlOrder = new JPanel();
+		pnlOrder.setLayout(new GridLayout(4, 1));
+		pnlOrder.setBorder(BorderFactory.createTitledBorder("Book Details"));
+
+        //Panel: Customer
+		pnlCustomer = new JPanel();
+		pnlCustomer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		lblName =new JLabel("Customer Name");
+		txtName = new JTextField(5);
+		lblPhone =new JLabel("Customer Phone");
+		txtPhone = new JTextField(5);
+		lblAddress =new JLabel("Address");
+		txtAddress = new JTextField(5);
+		pnlCustomer.add(lblName);
+		pnlCustomer.add(txtName);
+		pnlCustomer.add(lblPhone);
+		pnlCustomer.add(txtPhone);
+		pnlCustomer.add(lblAddress);
+		pnlCustomer.add(txtAddress);
 
 		//Panel: No nights 
 		pnlNights = new JPanel();
@@ -64,25 +80,6 @@ public class ResortBookingCalculator extends JFrame implements ActionListener
 		pnlNights.add(lblNights);
 		pnlNights.add(txtNights);
 
-		//Panel: room type
-		pnlRoom = new JPanel();
-		pnlRoom.setLayout(new GridLayout(2, 1));
-		rbtStandard = new JRadioButton("Standard");
-		rbtDeluxe = new JRadioButton("Deluxe");
-		btgType.add(rbtStandard);
-		btgType.add(rbtDeluxe);
-		pnlRoom.add(rbtStandard);
-		pnlRoom.add(rbtDeluxe);
-
-		//check box for dog
-		chkDog = new JCheckBox("Dog");
-
-		//Panel: for buttons
-		pnlButton = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		btnBook = new JButton("Book");
-		btnBook.setToolTipText("Add your booking details");
-		btnClear = new JButton("Clear");
-		btnClear.setToolTipText("Clears booking");
 		pnlButton.add(btnBook);
 		pnlButton.add(btnClear);
 
@@ -99,14 +96,12 @@ public class ResortBookingCalculator extends JFrame implements ActionListener
 		txtDisplay.setFont(new Font("Arial",Font.BOLD,15));
 		pnlDisplay.add(scroll);
 
-		pnlBooking.add(pnlNights);
-		pnlBooking.add(pnlRoom);
-		pnlBooking.add(chkDog);
-		pnlBooking.add(pnlButton);
+		pnlOrder.add(pnlCustomer);
+		pnlOrder.add(pnlRoom);
+		pnlOrder.add(pnlButton);
 
 		//add panels to pane
-		pane.add(pnlHeading,BorderLayout.NORTH);
-		pane.add(pnlBooking,BorderLayout.CENTER);
+		pane.add(pnlOrder,BorderLayout.CENTER);
 		pane.add(pnlDisplay,BorderLayout.EAST);
 
 		//add action listeners 
@@ -187,10 +182,5 @@ public class ResortBookingCalculator extends JFrame implements ActionListener
 
 
 
-	public void myUpdate(String details)
-	{
-		custDetails = details;
-		lblDetails.setText("  "+custDetails);
-	}
 }
 
