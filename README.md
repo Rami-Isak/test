@@ -1,2 +1,2 @@
-This  is my repository for my project
+This is my repository for my project
 Enjoy😄

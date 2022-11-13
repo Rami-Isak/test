@@ -2,6 +2,8 @@
 // 20/10/22
 // Login Screen for MG Pizza
 
+package com.test;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -93,9 +95,15 @@ public class MGPizza extends JFrame implements ActionListener
 				String pwd = jPasswordField.getText();
 				if (name.equals("rami") && pwd.equals("rami")) 
 				{
-					newframe regFace = new newframe();
-					regFace.setVisible(true);
-					dispose();
+					ResortBookingCalculator theApp = new ResortBookingCalculator();
+
+			        theApp.setTitle ("MG Resort Booking");
+			        theApp.setSize (800, 600);
+			        theApp.setLocationRelativeTo(theApp);
+			        theApp.setVisible(true);
+			        theApp.setResizable(false);
+			        theApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			        dispose();
 				} 
 				else 
 				{
