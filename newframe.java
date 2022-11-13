@@ -10,11 +10,13 @@ import javax.swing.*;
 public class newframe extends JFrame implements ActionListener
 {
 
+	Container pane = getContentPane();
 	public static void main(String[] args) 
 	{
 		newframe frameTabel = new newframe();
 	}
 
+	// Labels / Text
 	public static JLabel lblMG = new JLabel("MG Pizza");
 	public static JLabel lblCus = new JLabel("Customer Name");
 	public static JLabel lblPhn = new JLabel("Phone Number");
@@ -27,22 +29,32 @@ public class newframe extends JFrame implements ActionListener
 	public static JLabel lblTol = new JLabel("Total");
 	public static JLabel lblCur = new JLabel("Current Orders");	
 
-	
+	// Textboxes for Name, Phone and Address
+	private JTextField txtName, txtPhone, txtAdd;
+    
+	// Address Checkbox
+	private JCheckBox chkAdd;
+
+	// Radio Buttons for Basic and Deluxe
+	private JRadioButton rbtBasic, rbtDeluxe, rbtSize;
+
+	// Spinner For Quantity
+	private JSpinner spnQuan;
 
 	newframe() 
 	{
 		  setSize(700, 600);
 		  setLocation(500, 280);
-		  panel.setLayout(null);
+		  pane.setLayout(null);
 
-		getContentPane().add(panel);
+		getContentPane().add(pane);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) 
+	{
 		
 	}
 

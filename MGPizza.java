@@ -10,6 +10,7 @@ import javax.swing.*;
 public class MGPizza extends JFrame implements ActionListener
 {
 
+	private int choice = 0;
 	public static void main(String[] args) 
 	{
 		MGPizza frame = new MGPizza();
@@ -25,6 +26,7 @@ public class MGPizza extends JFrame implements ActionListener
 	 public static JLabel lblP = new JLabel();
 	 public static JLabel lblMG = new JLabel();
 	 MGPizza() 
+
 	{
 		// Sets title of window and labels
 		super("MG Pizza Login");
@@ -114,14 +116,17 @@ public class MGPizza extends JFrame implements ActionListener
 				
 			public void actionPerformed(ActionEvent ae) 
 			{ 
+				choice = JOptionPane.showConfirmDialog(null,"Do you really want to exit?","Exiting MG Pizza",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+			if (choice == JOptionPane.YES_OPTION)
+			{
 				System.exit(0);
+			}
 			}
 		});
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) 
+	{
 	}
 }
