@@ -1,77 +1,106 @@
+// Rami Isak
+// 17/11/22
+// Class for Pizza Arraylist
+
 package com.test;
 
-public class Pizza
+public class Pizza 
 {
+    // Variables
+	String pizzaCatagory;
+	private String pizzaSize;
 	private String pizzaType;
-	private String sizeType;
-	private boolean delivery;
-	private boolean discount;
-	private double totalCost;
-	
-	// constructor
+	private double cost;
+
 	public Pizza()
 	{
 		
 	}
-	
-	public Pizza(String pizzaType, String sizeType, boolean delivery)
+
+	public Pizza(String pizzaSize, String pizzaType)
+	{
+		this.pizzaSize = pizzaSize;
+		setType(pizzaType);
+		this.cost = calculateCost(pizzaSize, pizzaType);
+	}
+
+
+	public String getSize() 
+	{
+		return pizzaSize;
+	}
+
+
+	public void setSize(String pizzaSize) 
+	{
+		this.pizzaSize = pizzaSize;
+	}
+
+
+	public String getType() 
+	{
+		return pizzaType;
+	}
+
+
+	public void setType(String pizzaType) 
 	{
 		this.pizzaType = pizzaType;
-		this.delivery = delivery;
-		discount = false;
-		totalCost = calculateTotalCost(size, pizzaType, sizeType, delivery);
+
+        // Catagorises the Pizza Types since prices are different
+        if (pizzaType.equals("Marinara") || pizzaType.equals("Meat Lovers") || pizzaType.equals("Mexicana")) 
+        {
+        	pizzaCatagory = "Deluxe";
+        }
+        else 
+        {
+        	pizzaCatagory = "Basic";
+        }
 	}
 
-	int size = 0;
-	
-	public String hasdelivery(boolean delivery)
-	{
-		if(delivery)
-			return "Yes";
-		else
-			return "No";
-	}
-	public String isDiscounted(boolean dis)
-	{
-		if(dis)
-			return "Yes";
-		else
-			return "No";
-	}
-	
-	public double calculateTotalCost(int quantity, String pizzaType, String sizeType, boolean delivery)
-	{
-		double cost=0;
-		
-		
 
-		if(quantity>= 2)
-		{
-			cost = 0.9 * cost;
-			discount = true;
-		}
-		
-		if(delivery)
-			cost +=5;
-	
+	public double getCost() 
+	{
 		return cost;
 	}
-	
-	
-	@Override
-	public String toString()
+
+
+	public void setCost(double cost) 
 	{
-		StringBuffer sb =new StringBuffer();
-	
-		sb.append("Customer: " );
-		sb.append("\nNumber of quantity: ");
-		sb.append("\nPizza: "+pizzaType);
-		sb.append("\nSize: "+sizeType);
-		sb.append("\nDelivery: "+hasdelivery(delivery));
-		sb.append("\nDiscounted: " +isDiscounted(discount));
-		sb.append("\nTotal Cost:$ "+totalCost);
-		
-		return(sb.toString());
+		this.cost = cost;
 	}
-	
-}
+ 
+
+	public double calculateCost(String pizzaSize, String pizzaType)
+	{
+        int size_ = 0;
+        switch (getSize()) 
+		{
+            case "Small":
+                size_ = 1;
+                break;
+            case "Medium":
+                size_ = 2;
+                break;
+            case "Large":
+                size_ = 3;
+                break;
+        }
+        
+		// Calculates cost with sizes
+        cost = 4.0 * (double)size_ + 2.0;
+        
+        return cost;
+	}
+		@Override
+		public String toString() 
+		{
+			StringBuffer sb = new StringBuffer();
+			sb.append("\n "+ pizzaSize);
+			sb.append("\n "+pizzaType);
+			return (sb.toString());
+			
+		}
+
+
+	}

@@ -1,14 +1,15 @@
-/*
- * Marg Graham 23/10/2022
- * MG REsort booking form
- */
+// Rami Isak
+// 12/11/22
+// Main Class for Orders
+
 package com.test;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
-
 import javax.swing.*;
 
 
@@ -32,10 +33,7 @@ public class Order extends JFrame implements ActionListener
 	private JButton btnAtl;
 	private JButton btnOrder;
 	private JButton btnClear;
-	private JSpinner spnQuantity;
-	private JTextField txtTotal;
-	private JLabel lblQuantity;
-	private JLabel lblTotal;
+	private JButton btnExit;
 	private JLabel lblBasic;
 	private JRadioButton rdAussie;
 	private JRadioButton rdHawa;
@@ -49,16 +47,19 @@ public class Order extends JFrame implements ActionListener
 	private JRadioButton rdMedium;
 	private JRadioButton rdLarge;
 
+	// Variables
 	Container pane = getContentPane();
-
-	String custInfo; 
+	Customer theCustomer = new Customer();
+	Pizza thePizza;
+	ArrayList <Pizza> thePizzas = new ArrayList <Pizza>();
+	Calculate theOrder;
 	int quantity;
 	boolean delivery = false;
 	int i=0;
 	String display = "";
-	ArrayList <Pizza> thePizzas = new ArrayList <Pizza>();
 	ButtonGroup bgPizza = new ButtonGroup();
 	ButtonGroup bgSize = new ButtonGroup();
+	
 	
 
 	public Order()
@@ -160,20 +161,13 @@ public class Order extends JFrame implements ActionListener
 		pnlAction = new JPanel();
 		pnlAction.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
         btnAtl =new JButton("Add To List");
-		lblQuantity =new JLabel("Quantity");
-		spnQuantity =new JSpinner();
-		lblTotal =new JLabel("Total");
-		txtTotal =new JTextField(5);
-		txtTotal.setEditable(false);
 		btnOrder =new JButton("Order");
 		btnClear =new JButton("Clear");
+		btnExit =new JButton("Exit");
 		pnlAction.add(btnAtl);
-		pnlAction.add(lblQuantity);
-		pnlAction.add(spnQuantity);
-		pnlAction.add(lblTotal);
-		pnlAction.add(txtTotal);
 		pnlAction.add(btnOrder);
 		pnlAction.add(btnClear);
+		pnlAction.add(btnExit);
 
 		// Order Panel
 		txtDisplay = new JTextArea(25, 20);
@@ -198,16 +192,24 @@ public class Order extends JFrame implements ActionListener
 		btnAtl.addActionListener(this);
 		btnOrder.addActionListener(this);
 		btnClear.addActionListener(this);
+		btnExit.addActionListener(this);
 
-		if (!chkDelivery.isSelected())
+		// Greys out textfield if check not selected
+		chkDelivery.addItemListener((ItemListener) new ItemListener() 
 		{
-			txtAddress.setEditable(false);
-		}
-		else
-		{
-		
-		}
-
+			@Override
+			public void itemStateChanged(ItemEvent e) 
+			{
+				if(chkDelivery.isSelected()) 
+				{
+					txtAddress.setEnabled(true);
+				}
+				else
+				{
+					txtAddress.setEnabled(false);
+				}
+			}
+		});
 	}
 
 
@@ -216,21 +218,52 @@ public class Order extends JFrame implements ActionListener
 	{
 		if(e.getSource()==btnAtl)
 		{	
-			String pizzaInfo = "";
+            String pizzaDetails = "";
+			boolean missing;
+			missing = notEntered();
 
-			if(!notEntered()) //if no details are missing - calls notEntered()
+			// Call notEntered and if it's ok, Calls other classes and displays
+			if(!notEntered()) 
 			{
-				
+				createPizzaArrayList();
+				createCustomer();
+				theOrder = new Calculate (theCustomer, thePizzas, delivery);
+				pizzaDetails = theOrder.toString();
+				txtDisplay.setText(pizzaDetails);
 			}
 		}
-
+        
+		// Call clear everything
 		if(e.getSource()==btnClear)
 		{
 			clearEverything(); 
 		}
+        
+        // Displays message and Clears selections
+		if(e.getSource()==btnOrder)
+		if(!notEntered()) 
+		{
+			i = JOptionPane.showConfirmDialog(null,"Complete Pizza Order?","Order Pizza?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+			if (i == JOptionPane.YES_OPTION)
+			{
+
+				JOptionPane.showMessageDialog(null,"Order has been Sent Out"); 
+				clearEverything(); 
+			}
+		}
+
+		// Exits Application
+		if(e.getSource()==btnExit)
+		{
+			i = JOptionPane.showConfirmDialog(null,"Do you really want to exit?","Exiting Ordering Screen",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+			if (i == JOptionPane.YES_OPTION)
+			{
+				System.exit(0);
+			}
+		}
 	}
      
-
+    // If a Detail is Not Chosen it Will Display an Error Message
 	public boolean notEntered()
 	{
 
@@ -269,6 +302,54 @@ public class Order extends JFrame implements ActionListener
 		return false;
 	}
 
+	//Creates a New ArrayList For the Pizza
+	public void createPizzaArrayList()
+	{
+		String pizzaSize ="", pizzaType="";
+		i=0;
+		if(rdAussie.isSelected())
+		{
+			pizzaType = "Aussie";
+		}
+		if(rdHawa.isSelected())
+		{
+			pizzaType = "Hawaiian";
+		}
+		if(rdVege.isSelected())
+		{
+			pizzaType = "Vegetarian";
+		}
+		if(rdMarin.isSelected())
+		{
+			pizzaType = "Marinara";
+		}
+		if(rdMeat.isSelected())
+		{
+			pizzaType = "Meat Lovers";
+		}
+		if(rdMexi.isSelected())
+		{
+			pizzaType = "Mexicana";
+		}
+
+		if(rdSmall.isSelected())
+		{
+			pizzaSize = "Small";
+		}
+		if(rdMedium.isSelected())
+		{
+			pizzaSize = "Medium";
+		}
+		if(rdLarge.isSelected())
+		{
+			pizzaSize = "Large";
+		}
+		thePizza = new Pizza(pizzaSize, pizzaType);
+		thePizzas.add(i, thePizza);
+		i++;
+	}
+    
+	// Clears all Options and Text for Next Order
 	public void clearEverything()
 	{
 		txtName.setText("");
@@ -281,4 +362,26 @@ public class Order extends JFrame implements ActionListener
 		delivery = false;
 	}
 	
+	// Creates a New Customer
+	public void createCustomer()
+	{
+		String cusName;
+		String cusPhone;
+		String cusAddress;
+		
+		cusName = txtName.getText();
+		cusPhone = txtPhone.getText();
+		if(txtAddress.getText()!=null)
+		{
+			cusAddress = txtAddress.getText();
+		}
+		else
+		{
+			cusAddress = "";
+		}
+		theCustomer.setName(cusName);
+		theCustomer.setPhone(cusPhone);
+		theCustomer.setAddress(cusAddress);
+	}
+
 }
